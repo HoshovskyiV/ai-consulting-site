@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { google } from 'googleapis'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -10,23 +9,47 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const oauth2Client = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      `${process.env.NEXTAUTH_URL}/api/oauth/callback`
-    )
+    console.log('Environment variables check:')
+    console.log('GOOGLE_CLIENT_ID exists:', !!process.env.GOOGLE_CLIENT_ID)
+    console.log('GOOGLE_CLIENT_SECRET exists:', !!process.env.GOOGLE_CLIENT_SECRET)
+    console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL)
 
-    const { tokens } = await oauth2Client.getToken(code)
-    
-    // In production, you would save the refresh_token securely
-    // For now, we'll display it to copy manually to environment variables
+    const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: process.env.GOOGLE_CLIENT_ID!,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+        code,
+        grant_type: 'authorization_code',
+        redirect_uri: `${process.env.NEXTAUTH_URL}/api/oauth/callback`,
+      }),
+    })
+
+    const tokenData = await tokenResponse.json()
+
+    if (!tokenResponse.ok) {
+      console.error('Token exchange failed:', tokenData)
+      return NextResponse.json({ 
+        error: 'Token exchange failed', 
+        details: tokenData 
+      }, { status: 400 })
+    }
+
     return NextResponse.json({
       success: true,
-      refresh_token: tokens.refresh_token,
-      message: 'Save this refresh_token to GOOGLE_REFRESH_TOKEN environment variable'
+      refresh_token: tokenData.refresh_token,
+      access_token: tokenData.access_token?.substring(0, 20) + '...',
+      message: 'Copy the refresh_token value and add it to Vercel environment variables as GOOGLE_REFRESH_TOKEN'
     })
   } catch (error) {
-    console.error('OAuth error:', error)
-    return NextResponse.json({ error: 'OAuth failed' }, { status: 500 })
+    console.error('OAuth error details:', error)
+    return NextResponse.json({ 
+      error: 'OAuth processing failed', 
+      details: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    }, { status: 500 })
   }
 }

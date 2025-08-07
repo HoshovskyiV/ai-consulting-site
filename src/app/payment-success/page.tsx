@@ -1,8 +1,11 @@
-export default function PaymentSuccess({
-  searchParams,
-}: {
-  searchParams: { booking?: string }
-}) {
+// src/app/payment-success/page.tsx
+interface PageProps {
+  searchParams: {
+    booking?: string
+  }
+}
+
+export default function PaymentSuccess({ searchParams }: PageProps) {
   const bookingId = searchParams.booking
 
   return (
@@ -11,19 +14,21 @@ export default function PaymentSuccess({
         <div className="success-icon">✅</div>
         <h1>Оплату успішно прийнято!</h1>
         <p>Дякуємо за довіру. Ваше бронювання опрацьовується.</p>
-        
+
         {bookingId && (
           <div className="booking-info">
-            <p><strong>Номер бронювання:</strong> {bookingId}</p>
+            <p>
+              <strong>Номер бронювання:</strong> {bookingId}
+            </p>
           </div>
         )}
 
         <div className="next-steps">
           <h3>Що далі?</h3>
           <ol>
-            <li>Протягом 30 хвилин ви отримаєте email з деталями</li>
-            <li>За 24 години до зустрічі надішлю посилання на відеодзвінок</li>
-            <li>Підготую персоналізовані матеріали на основі вашої заявки</li>
+            <li>Протягом 30 хв дістанете email з деталями</li>
+            <li>За 24 години надійде лінк на відеодзвінок</li>
+            <li>Підготую персоналізовані матеріали</li>
           </ol>
         </div>
 

@@ -1,12 +1,10 @@
 // src/app/payment-success/page.tsx
-interface PageProps {
-  searchParams: {
-    booking?: string
-  }
-}
-
-export default function PaymentSuccess({ searchParams }: PageProps) {
-  const bookingId = searchParams.booking
+export default function PaymentSuccess({
+  searchParams,
+}: {
+  searchParams?: { booking?: string }
+}) {
+  const bookingId = searchParams?.booking
 
   return (
     <div className="container">
@@ -26,9 +24,9 @@ export default function PaymentSuccess({ searchParams }: PageProps) {
         <div className="next-steps">
           <h3>Що далі?</h3>
           <ol>
-            <li>Протягом 30 хв дістанете email з деталями</li>
-            <li>За 24 години надійде лінк на відеодзвінок</li>
-            <li>Підготую персоналізовані матеріали</li>
+            <li>Протягом 30 хвилин ви отримаєте email з деталями</li>
+            <li>За 24 год до зустрічі надійде лінк на відеодзвінок</li>
+            <li>Підготую персоналізовані матеріали на основі вашої заявки</li>
           </ol>
         </div>
 

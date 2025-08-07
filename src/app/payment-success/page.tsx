@@ -1,10 +1,11 @@
 // src/app/payment-success/page.tsx
-export default function PaymentSuccess({
+export default async function PaymentSuccess({
   searchParams,
 }: {
-  searchParams?: { booking?: string }
+  searchParams?: Promise<Record<string, string>>
 }) {
-  const bookingId = searchParams?.booking
+  const params = searchParams ? await searchParams : undefined
+  const bookingId = params?.booking
 
   return (
     <div className="container">
@@ -24,8 +25,8 @@ export default function PaymentSuccess({
         <div className="next-steps">
           <h3>Що далі?</h3>
           <ol>
-            <li>Протягом 30 хвилин ви отримаєте email з деталями</li>
-            <li>За 24 год до зустрічі надійде лінк на відеодзвінок</li>
+            <li>Протягом 30&nbsp;хвилин отримаєте email з деталями</li>
+            <li>За 24&nbsp;год до зустрічі надійде лінк на відеодзвінок</li>
             <li>Підготую персоналізовані матеріали на основі вашої заявки</li>
           </ol>
         </div>

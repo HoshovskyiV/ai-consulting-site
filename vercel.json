@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "src/app/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--no-deprecation"
+    }
+  },
+  "regions": ["fra1"]
+}

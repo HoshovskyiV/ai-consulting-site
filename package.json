@@ -1,0 +1,39 @@
+{
+  "name": "ai-consulting-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:schema": "cross-env NODE_OPTIONS=--no-deprecation payload generate:db-schema",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@payloadcms/db-vercel-postgres": "^3.50.0",
+    "@payloadcms/next": "^3.50.0",
+    "@payloadcms/richtext-lexical": "^3.50.0",
+    "@payloadcms/ui": "^3.50.0",
+    "cross-env": "^7.0.3",
+    "googleapis": "^144.0.0",
+    "next": "15.4.6",
+    "payload": "^3.50.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "sharp": "0.32.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "eslint": "^8",
+    "eslint-config-next": "15.4.6",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.20.4"
+  }
+}

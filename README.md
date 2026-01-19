@@ -6,7 +6,7 @@
 
 - **Payload 3.0** - CMS + Admin панель  
 - **Next.js 15** - Frontend framework
-- **Vercel Postgres** - База даних
+- **PostgreSQL** - База даних
 - **Monobank API** - Платежі
 - **TypeScript** - Типізація
 
@@ -23,7 +23,7 @@ cp .env.example .env.local
 ```
 
 Заповніть значення в `.env.local`:
-- `POSTGRES_URL` - з Vercel Postgres
+- `DATABASE_URL` - рядок підключення до PostgreSQL
 - `PAYLOAD_SECRET` - випадковий рядок 32+ символи  
 - `MONOBANK_TOKEN` - з https://api.monobank.ua/
 - `MONOBANK_WEBHOOK_SECRET` - випадковий рядок
@@ -43,15 +43,7 @@ pnpm dev
 - http://localhost:3000 - фронтенд
 - http://localhost:3000/admin - CMS
 
-## Деплой
-
-### Vercel
-1. Підключіть GitHub репозиторій
-2. Додайте змінні оточення  
-3. Увімкніть Vercel Postgres
-4. Задеплойте
-
-### Після деплою
+## Після деплою
 1. Створіть адміна через `/admin`
 2. Налаштуйте webhook в Monobank консолі
 3. Протестуйте платежі

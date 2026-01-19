@@ -26,7 +26,7 @@ const calculateEventDuration = (service: string): number => {
   return durations[service] || 60
 }
 
-export default buildConfig({
+const payloadConfig = buildConfig({
   admin: {
     user: 'users',
   },
@@ -162,7 +162,7 @@ Meeting Link: https://meet.google.com/new (to be updated)
                 // Update booking with Google Calendar event ID
                 if (calendarEvent?.id) {
                   // Use Payload API to update the document
-                  const payload = await import('payload').then(m => m.getPayload({ config: this }))
+                  const payload = await import('payload').then(m => m.getPayload({ config: payloadConfig }))
                   await payload.update({
                     collection: 'bookings',
                     id: doc.id,
@@ -185,7 +185,7 @@ Meeting Link: https://meet.google.com/new (to be updated)
   ],
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL,
+      connectionString: process.env.DATABASE_URL,
     },
   }),
   editor: lexicalEditor({}),
@@ -194,3 +194,5 @@ Meeting Link: https://meet.google.com/new (to be updated)
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
 })
+
+export default payloadConfig

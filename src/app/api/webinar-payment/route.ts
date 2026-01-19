@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MONOBANK_TOKEN = 'mono_test_8f2b1c9d4e0a7f3b'
+
+const MONOBANK_TOKEN = process.env.MONOBANK_TOKEN ?? 'mono_test_8f2b1c9d4e0a7f3b'
 const WEBINAR_PRICE_UAH = 1500
 
 export async function POST(req: NextRequest) {

@@ -10,6 +10,11 @@ export default function Home() {
           17 років досвіду у відеопродакшні + 2.5 року інтенсивних досліджень AI.
           Допомагаю бізнесу знаходити приховані можливості оптимізації.
         </p>
+        <div className="hero-actions">
+          <a className="primary-link" href="/webinar">
+            Перейти до вебінару
+          </a>
+        </div>
       </header>
 
       <section className="services">
